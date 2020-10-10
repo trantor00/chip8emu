@@ -3,38 +3,43 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <time.h>
+#include <unistd.h>
+#include <string.h>
+
+
 
 class chip8{
 
 private:
-int8_t chip8_memory[4096]; //(0x1000), 4096
-int16_t opcode;
-int8_t chip8_registers[16];  // V
-int16_t PC;
-int16_t I;
-int16_t chip8_stack[16];
-int16_t SP;
-int8_t keys[16];
-// Timers
+uint8_t chip8_memory[4096]; //(0x1000), 4096
+uint16_t opcode;
+uint8_t chip8_registers[16];  // V
+uint16_t PC;
+uint16_t I;
+uint16_t chip8_stack[16];
+uint16_t SP;
+bool draw;
+uint8_t delaytimer;  // Delay timer: This timer is intended to be used for timing the events of games. Its value can be set and read.
+uint8_t soundtimer;  // Sound timer: This timer is used for sound effects. When its value is nonzero, a beeping sound is made.
 // CHIP-8 has two timers. They both count down at 60 hertz, until they reach 0.
-int8_t delaytimer;  // Delay timer: This timer is intended to be used for timing the events of games. Its value can be set and read.
-int8_t soundtimer;  // Sound timer: This timer is used for sound effects. When its value is nonzero, a beeping sound is made.
 
-
-
-int8_t gfx[64 * 32];  // I need opengl for graphics and sounds!
 
 public:
 chip8();
+uint8_t chip8_keys[16];
+uint32_t chip8_gfx[64 * 32];  // I need opengl for graphics and sounds!
 void chip8_cpu();
 void chip8_initializesystem();
-void chip8_loadROM(std::string ROMname);
-int8_t getdelayTimer();
-int8_t getsoundTimer();
-
+void chip8_loadROM(const char * ROMname);
+uint8_t getdelayTimer();
+uint8_t getsoundTimer();
+bool getdraw();
+void setdraw(bool d);
 
 
 };
+
 
 
 
