@@ -352,8 +352,6 @@ PC +=2;
     --delaytimer;}
  
   if(soundtimer > 0){
-    if(soundtimer == 1)
-      printf("BEEP!\n");
     --soundtimer;
 }
 }
